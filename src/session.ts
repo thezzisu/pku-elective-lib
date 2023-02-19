@@ -42,12 +42,19 @@ export class Session {
     this.page = await this.ctx.newPage()
   }
 
-  async login(user: string, pass: string) {
+  async login(user: string, pass: string, secondary = false) {
     await this.page.goto(ELEC_IAAA_URL)
     await this.page.type('#user_name', user)
     await this.page.type('#password', pass)
     await this.page.click('#logon_button')
-    await this.page.waitForSelector('.pkuportal-remark')
+    await Promise.race([
+      this.page.waitForSelector('.pkuportal-remark'),
+      this.page.waitForSelector('#div')
+    ])
+    if (await this.page.$('#div')) {
+      await this.page.click(secondary ? '#div2' : '#div1')
+      await this.page.waitForSelector('.pkuportal-remark')
+    }
     this.log('Logged in')
   }
 
