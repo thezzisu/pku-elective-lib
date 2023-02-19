@@ -78,9 +78,7 @@ export class Session {
     for (;;) {
       if (await this.sessionExpired()) throw new Error('Session expired')
       const rows = await this.page.evaluate(() => {
-        const tbody = document.querySelector(
-          'body > table:nth-child(3) > tbody > tr:nth-child(8) > td > table > tbody'
-        )
+        const tbody = document.querySelector('table.datagrid > tbody')
         if (!tbody) return []
         return [...tbody.querySelectorAll('tr')]
           .filter((el) =>
@@ -101,7 +99,7 @@ export class Session {
           })
       })
       dataRows.push(...rows)
-      const SPAN_SELECTOR = `body > table:nth-child(3) > tbody > tr:nth-child(8) > td > table > tbody > tr:last-child > td:nth-child(1)`
+      const SPAN_SELECTOR = `table.datagrid > tbody > tr:last-child > td:nth-child(1)`
       let nextIndex = await this.page.evaluate((selector) => {
         const span = document.querySelector(selector)
         if (!span) return 0
