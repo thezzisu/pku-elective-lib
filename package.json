@@ -3,7 +3,7 @@
   "description": "PKU Elective Library",
   "packageManager": "yarn@3.4.1",
   "license": "AGPL-3.0",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "lib/index.js",
   "repository": {
     "type": "git",

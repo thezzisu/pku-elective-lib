@@ -74,14 +74,15 @@ server.post(
       params: Type.Object({ id: Type.String() }),
       body: Type.Object({
         user: Type.String(),
-        pass: Type.String()
+        pass: Type.String(),
+        secondary: Type.Optional(Type.Boolean())
       })
     }
   },
   async (req) => {
     const session = server.sessions[req.params.id]
     if (!session) throw new Error('Not found')
-    await session.login(req.body.user, req.body.pass)
+    await session.login(req.body.user, req.body.pass, req.body.secondary)
     return 0
   }
 )
