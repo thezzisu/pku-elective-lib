@@ -231,13 +231,15 @@ export class Session {
       this.page.waitForSelector('#msgTips'),
       this.page.waitForSelector('body > div > table > tbody > tr:nth-child(9) > td')
     ])
-    const success = await this.page.evaluate(() => {
+    const [success, msg] = await this.page.evaluate(() => {
       let msg =
-        document.querySelector('body > div > table > tbody > tr:nth-child(9) > td')?.textContent ??
-        ''
-      if (/不正确/.test(msg)) return false
-      msg = document.querySelector('#msgTips')?.textContent ?? ''
-      return /成功/.test(msg)
+        document
+          .querySelector('body > div > table > tbody > tr:nth-child(9) > td')
+          ?.textContent?.trim() ?? ''
+      if (/不正确/.test(msg)) return [false, msg]
+      msg = document.querySelector('#msgTips')?.textContent?.trim() ?? ''
+      if (!/成功/.test(msg)) return [false, msg]
+      return [true, '']
     })
     this.log('elect', success ? 'success' : 'failed')
     if (!success) {
@@ -246,7 +248,7 @@ export class Session {
         this.page.click('#menu > li:nth-child(4) > a')
       ])
     }
-    return success
+    return [success, msg]
   }
 
   async destroy() {
