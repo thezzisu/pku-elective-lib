@@ -1,0 +1,48 @@
+{
+  "name": "pku-elective-lib",
+  "description": "PKU Elective Library",
+  "packageManager": "yarn@3.4.1",
+  "license": "AGPL-3.0",
+  "version": "0.1.3",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thezzisu/pku-elective-lib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thezzisu/pku-elective-lib/issues"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.3.35",
+    "@types/chai": "^4.3.4",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/fs-extra": "^11.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.13.0",
+    "@types/tap": "^15.0.8",
+    "c8": "^7.12.0",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.34.0",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "ts:check": "tsc --noEmit",
+    "ts:build": "tsc",
+    "ts:clean": "rimraf .tsbuildinfo lib",
+    "mocha:run": "c8 mocha"
+  },
+  "dependencies": {
+    "@fastify/type-provider-typebox": "^2.4.0",
+    "@sinclair/typebox": "^0.25.23",
+    "fastify": "^4.13.0",
+    "fs-extra": "^11.1.0",
+    "puppeteer-core": "^19.7.1"
+  },
+  "files": [
+    "lib"
+  ]
+}
